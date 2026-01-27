@@ -31,7 +31,7 @@ Strawberry is a simple, private, and secure period tracking application that run
 Strawberry is a Progressive Web App, which means you can use it directly in your browser or install it to your device:
 
 ### Using in Browser
-1. Visit [your-strawberry-url.com]
+1. Visit the app URL in your browser
 2. Start tracking immediately - no setup required
 
 ### Installing as PWA
