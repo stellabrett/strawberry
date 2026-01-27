@@ -1,7 +1,11 @@
 # Placeholder for PWA icons
 # In production, add the following files:
-# - pwa-192x192.png
-# - pwa-512x512.png
+# - pwa-192x192.png (192x192 icon)
+# - pwa-512x512.png (512x512 icon)
 # - favicon.ico
 # - apple-touch-icon.png
 # - masked-icon.svg
+#
+# Note: For maskable icons, ensure proper safe zones:
+# - Create icons with padding to avoid clipping on different devices
+# - Use a dedicated maskable icon with safe zones if needed

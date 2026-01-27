@@ -151,13 +151,23 @@ const features: Feature[] = [
   },
 ]
 
+// BeforeInstallPromptEvent interface for PWA
+interface BeforeInstallPromptEvent extends Event {
+  readonly platforms: string[]
+  readonly userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed'
+    platform: string
+  }>
+  prompt(): Promise<void>
+}
+
 const showInstallPrompt = ref(false)
-let deferredPrompt: any = null
+let deferredPrompt: BeforeInstallPromptEvent | null = null
 
 onMounted(() => {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault()
-    deferredPrompt = e
+    deferredPrompt = e as BeforeInstallPromptEvent
     showInstallPrompt.value = true
   })
 })
