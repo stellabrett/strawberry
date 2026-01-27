@@ -29,7 +29,7 @@ const technologies = ref<Technology[]>([
   },
   {
     name: 'Vite',
-    version: '5.x',
+    version: '7.x',
     description: 'Next generation frontend tooling',
     link: 'https://vitejs.dev'
   }
