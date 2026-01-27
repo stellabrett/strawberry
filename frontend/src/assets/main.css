@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mobile-first custom styles */
+@layer base {
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply h-full overflow-x-hidden bg-gray-50 text-gray-900;
+  }
+
+  #app {
+    @apply h-full;
+  }
+}
+
+@layer components {
+  /* Safe area support for mobile devices */
+  .safe-area-inset-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-inset-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-inset-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
