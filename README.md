@@ -1,98 +1,112 @@
-# 🍓 Strawberry
+# 🍓 Strawberry - Mobile-First PWA
 
-A privacy-first Progressive Web App (PWA) for period tracking. Your data stays on your device, always.
+A modern, mobile-first Progressive Web App built with Vue 3, TypeScript, and Tailwind CSS.
 
-## Overview
+## Features
 
-Strawberry is a simple, private, and secure period tracking application that runs entirely in your browser. Built with privacy as the foundation, Strawberry ensures that your personal health data never leaves your device.
+- 📱 **Mobile-First Design** - Optimized for mobile devices with touch-friendly interactions
+- ⚡ **Fast & Responsive** - Built with Vue 3 and Vite for lightning-fast performance
+- 🎨 **Tailwind CSS** - Beautiful, customizable design with utility-first CSS
+- 📦 **PWA Ready** - Installable app with offline support and service worker
+- 🔒 **TypeScript** - Type-safe development experience
+- 🎯 **Safe Area Support** - Handles notched devices with safe area insets
 
-## 🔒 Privacy-First Principles
+## Tech Stack
 
-- **Local-Only Data Storage**: All your data is stored locally in your browser using IndexedDB. Nothing is sent to external servers.
-- **No Account Required**: No sign-ups, no emails, no passwords to remember or manage.
-- **No Analytics or Tracking**: Zero telemetry, no third-party analytics, and no tracking scripts.
-- **No Internet Required**: Works completely offline once installed as a PWA.
-- **Open Source**: Transparent codebase that you can audit yourself.
-- **Your Data, Your Control**: Export your data anytime, delete it whenever you want.
+- **Vue 3** - Progressive JavaScript framework
+- **TypeScript** - Typed superset of JavaScript
+- **Tailwind CSS 3** - Utility-first CSS framework
+- **Vite** - Next generation frontend tooling
+- **vite-plugin-pwa** - Zero-config PWA plugin for Vite
 
-## ✨ Features
+## Getting Started
 
-- **Simple Period Tracking**: Log your periods with just a few taps
-- **Cycle Predictions**: Smart predictions based on your history
-- **Symptom Logging**: Track symptoms, mood, and notes
-- **Calendar View**: Visual overview of your cycle history
-- **Offline-First**: Works without an internet connection
-- **PWA Benefits**: Install to your home screen like a native app
-- **Cross-Device Sync** (Optional): Manual export/import for device transfers
-- **Dark Mode**: Easy on the eyes, day or night
+### Prerequisites
 
-## 🚀 Installation
+- Node.js 16+ and npm
 
-Strawberry is a Progressive Web App, which means you can use it directly in your browser or install it to your device:
+### Installation
 
-### Using in Browser
-1. Visit the app URL in your browser
-2. Start tracking immediately - no setup required
+```bash
+# Install dependencies
+npm install
 
-### Installing as PWA
-1. Visit the app in a supported browser (Chrome, Edge, Safari, Firefox)
-2. Look for the "Install" or "Add to Home Screen" prompt
-3. Click install and Strawberry will be added to your device like a native app
+# Start development server
+npm run dev
 
-## 🛠️ Technology
+# Build for production
+npm run build
 
-Strawberry is built with modern web technologies:
+# Preview production build
+npm run preview
+```
 
-- **Progressive Web App**: Installable, offline-capable, and fast
-- **Local Storage**: IndexedDB for robust client-side data persistence
-- **Service Workers**: For offline functionality and caching
-- **Responsive Design**: Works on mobile, tablet, and desktop
-- **No Backend**: Pure client-side application
+## Project Structure
 
-## 📊 Data Management
+```
+strawberry/
+├── public/               # Static assets
+├── src/
+│   ├── components/      # Reusable Vue components
+│   │   ├── AppHeader.vue
+│   │   └── AppNav.vue
+│   ├── layouts/         # Layout components
+│   │   └── MobileLayout.vue
+│   ├── views/           # Page components
+│   │   ├── HomePage.vue
+│   │   ├── AboutPage.vue
+│   │   └── SettingsPage.vue
+│   ├── App.vue          # Root component
+│   ├── main.ts          # Application entry point
+│   └── style.css        # Global styles with Tailwind
+├── index.html           # HTML entry point
+├── vite.config.ts       # Vite configuration
+├── tailwind.config.js   # Tailwind CSS configuration
+└── tsconfig.json        # TypeScript configuration
+```
 
-### Export Your Data
-You can export your data at any time in JSON format to:
-- Back up your tracking history
-- Transfer to a new device
-- Use with other applications
+## Layout Features
 
-### Import Data
-Restore from a previous export or migrate from another app by importing a compatible JSON file.
+### Mobile-Optimized Layout
 
-### Delete Your Data
-Complete data deletion is available anytime from the settings. Once deleted, your data cannot be recovered.
+- **Sticky Header** - Brand logo, time display, and menu button
+- **Scrollable Content Area** - Main content with smooth transitions
+- **Bottom Navigation** - Fixed bottom navigation with Home, About, and Settings tabs
+- **Safe Area Insets** - Supports devices with notches and rounded corners
 
-## 🔐 Security Notes
+### Design System
 
-- **HTTPS Only**: Always access Strawberry over HTTPS to ensure data integrity
-- **Browser Security**: Your data's security relies on your device and browser security
-- **Device Lock**: Use device PIN/password/biometric lock for physical security
-- **Regular Backups**: Export and securely store backups of your data
+- Minimum touch target size of 44px (iOS recommended)
+- Active scale feedback on button interactions
+- Smooth page transitions
+- Card-based UI components
+- Responsive grid layouts
 
-## 🤝 Contributing
+## PWA Configuration
 
-Contributions are welcome! Whether it's:
-- Bug reports
-- Feature requests
-- Code contributions
-- Documentation improvements
-- Translations
+The app includes:
 
-Please open an issue or submit a pull request.
+- **Service Worker** - Automatic offline caching
+- **Web App Manifest** - Install prompt and app metadata
+- **Workbox** - Smart caching strategies
+- **Runtime Caching** - Cache external resources like fonts
 
-## 📄 License
+## Development
 
-This project is open source and available under the [MIT License](LICENSE).
+The project uses:
 
-## 🌱 Philosophy
+- Vue 3 Composition API with `<script setup>`
+- TypeScript for type safety
+- Tailwind CSS utilities for styling
+- Mobile-first responsive design approach
 
-Strawberry believes that health data is deeply personal and should be under your complete control. We built this app on the principle that privacy isn't a feature - it's a fundamental right. Your body, your data, your choice.
+## Browser Support
 
-## ⚠️ Disclaimer
+- Modern browsers with ES2020+ support
+- Mobile Safari (iOS 12+)
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
 
-Strawberry is designed for period tracking and cycle awareness. It is not a medical device and should not be used as a sole method of contraception or for medical diagnosis. Always consult healthcare professionals for medical advice.
+## License
 
----
-
-Made with 💜 for privacy-conscious individuals
+ISC
