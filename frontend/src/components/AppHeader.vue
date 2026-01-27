@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const isMenuOpen = ref(false)
 const currentTime = ref('')
+let intervalId: number | null = null
 
 const updateTime = () => {
   const now = new Date()
@@ -14,7 +15,13 @@ const updateTime = () => {
 
 onMounted(() => {
   updateTime()
-  setInterval(updateTime, 60000) // Update every minute
+  intervalId = setInterval(updateTime, 60000) // Update every minute
+})
+
+onUnmounted(() => {
+  if (intervalId !== null) {
+    clearInterval(intervalId)
+  }
 })
 
 const toggleMenu = () => {
