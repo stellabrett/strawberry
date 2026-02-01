@@ -1,38 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 import AppHeader from '../components/AppHeader.vue'
 import AppNav from '../components/AppNav.vue'
-import HomePage from '../views/HomePage.vue'
-import AboutPage from '../views/AboutPage.vue'
-import SettingsPage from '../views/SettingsPage.vue'
 
-const currentView = ref<'home' | 'about' | 'settings'>('home')
+const router = useRouter()
+const authStore = useAuthStore()
 
-const navigateTo = (view: 'home' | 'about' | 'settings') => {
-  currentView.value = view
+const handleLogout = async () => {
+  await authStore.logout()
+  router.push({ name: 'Login' })
 }
 </script>
 
 <template>
-  <div class="flex flex-col h-screen bg-gray-50">
+  <div v-if="authStore.isAuthenticated" class="flex flex-col h-screen bg-gray-50">
     <!-- Header with safe area for notch -->
-    <AppHeader class="safe-area-top" />
-    
+    <div class="safe-area-top bg-white shadow-sm">
+      <AppHeader @logout="handleLogout" />
+    </div>
+
     <!-- Main content area - scrollable -->
     <main class="flex-1 overflow-y-auto">
-      <Transition name="fade" mode="out-in">
-        <HomePage v-if="currentView === 'home'" />
-        <AboutPage v-else-if="currentView === 'about'" />
-        <SettingsPage v-else-if="currentView === 'settings'" />
-      </Transition>
+      <RouterView v-slot="{ Component }" class="w-full">
+        <Transition name="fade" mode="out-in">
+          <component :is="Component" :key="$route.path" />
+        </Transition>
+      </RouterView>
     </main>
-    
+
     <!-- Bottom navigation with safe area -->
-    <AppNav 
-      :current-view="currentView" 
-      @navigate="navigateTo"
-      class="safe-area-bottom"
-    />
+    <AppNav class="safe-area-bottom bg-white border-t border-gray-200" />
+  </div>
+  <div v-else>
+    <RouterView />
   </div>
 </template>
 

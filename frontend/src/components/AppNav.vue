@@ -1,18 +1,30 @@
 <script setup lang="ts">
-interface Props {
-  currentView: 'home' | 'about' | 'settings'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const routeNameMap: { [key: string]: string } = {
+  'Home': 'home',
+  'About': 'about',
+  'Settings': 'settings',
 }
 
-interface Emits {
-  (e: 'navigate', view: 'home' | 'about' | 'settings'): void
+const currentRoute = computed(() => {
+  const routeName = router.currentRoute.value.name as string
+  return routeNameMap[routeName] || 'home'
+})
+
+const navigate = (routeName: string) => {
+  const nameMap: { [key: string]: string } = {
+    'home': 'Home',
+    'about': 'About',
+    'settings': 'Settings',
+  }
+  router.push({ name: nameMap[routeName] })
 }
 
-defineProps<Props>()
-const emit = defineEmits<Emits>()
-
-const navigate = (view: 'home' | 'about' | 'settings') => {
-  emit('navigate', view)
-}
+const isActive = (view: string) => currentRoute.value === view
 </script>
 
 <template>
@@ -22,7 +34,8 @@ const navigate = (view: 'home' | 'about' | 'settings') => {
       <button
         @click="navigate('home')"
         class="flex-1 flex flex-col items-center justify-center space-y-1 py-2 no-tap-highlight transition-colors"
-        :class="currentView === 'home' ? 'text-blue-600' : 'text-gray-600 active:text-gray-900'"
+        :class="isActive('home') ? 'text-blue-600' : 'text-gray-600 active:text-gray-900'"
+        aria-label="Home"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
@@ -32,14 +45,15 @@ const navigate = (view: 'home' | 'about' | 'settings') => {
             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
           />
         </svg>
-        <span class="text-xs font-medium">Home</span>
+        <span class="text-xs font-medium">Startseite</span>
       </button>
       
       <!-- About -->
       <button
         @click="navigate('about')"
         class="flex-1 flex flex-col items-center justify-center space-y-1 py-2 no-tap-highlight transition-colors"
-        :class="currentView === 'about' ? 'text-blue-600' : 'text-gray-600 active:text-gray-900'"
+        :class="isActive('about') ? 'text-blue-600' : 'text-gray-600 active:text-gray-900'"
+        aria-label="About"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
@@ -49,14 +63,15 @@ const navigate = (view: 'home' | 'about' | 'settings') => {
             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <span class="text-xs font-medium">About</span>
+        <span class="text-xs font-medium">Info</span>
       </button>
       
       <!-- Settings -->
       <button
         @click="navigate('settings')"
         class="flex-1 flex flex-col items-center justify-center space-y-1 py-2 no-tap-highlight transition-colors"
-        :class="currentView === 'settings' ? 'text-blue-600' : 'text-gray-600 active:text-gray-900'"
+        :class="isActive('settings') ? 'text-blue-600' : 'text-gray-600 active:text-gray-900'"
+        aria-label="Settings"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path 
@@ -72,14 +87,13 @@ const navigate = (view: 'home' | 'about' | 'settings') => {
             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
-        <span class="text-xs font-medium">Settings</span>
+        <span class="text-xs font-medium">Einstellungen</span>
       </button>
     </div>
   </nav>
 </template>
 
 <style scoped>
-/* Add visual feedback for active tab */
 button {
   position: relative;
 }

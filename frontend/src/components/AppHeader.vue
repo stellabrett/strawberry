@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 
+interface Emits {
+  (e: 'logout'): void
+}
+
+const emit = defineEmits<Emits>()
+const router = useRouter()
+const authStore = useAuthStore()
 const isMenuOpen = ref(false)
 const currentTime = ref('')
 let intervalId: number | null = null
@@ -15,7 +24,7 @@ const updateTime = () => {
 
 onMounted(() => {
   updateTime()
-  intervalId = setInterval(updateTime, 60000) // Update every minute
+  intervalId = setInterval(updateTime, 60000)
 })
 
 onUnmounted(() => {
@@ -26,6 +35,16 @@ onUnmounted(() => {
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
+}
+
+const goToProfile = () => {
+  router.push({ name: 'Settings' })
+  isMenuOpen.value = false
+}
+
+const handleLogout = () => {
+  isMenuOpen.value = false
+  emit('logout')
 }
 </script>
 
@@ -41,9 +60,14 @@ const toggleMenu = () => {
           <h1 class="text-xl font-bold text-gray-900">Strawberry</h1>
         </div>
         
-        <!-- Right side - time and menu -->
+        <!-- Right side - user info and menu -->
         <div class="flex items-center space-x-4">
           <span class="text-sm text-gray-600 hidden xs:block">{{ currentTime }}</span>
+          <div v-if="authStore.hasUser" class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+              {{ authStore.user?.name?.charAt(0).toUpperCase() }}
+            </div>
+          </div>
           <button 
             @click="toggleMenu"
             class="p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 no-tap-highlight"
@@ -74,15 +98,18 @@ const toggleMenu = () => {
         class="border-t border-gray-200 bg-white"
       >
         <nav class="px-4 py-2">
-          <a href="#" class="block py-3 text-gray-700 hover:text-blue-600 active:bg-gray-50 rounded px-2">
-            Profile
-          </a>
-          <a href="#" class="block py-3 text-gray-700 hover:text-blue-600 active:bg-gray-50 rounded px-2">
-            Notifications
-          </a>
-          <a href="#" class="block py-3 text-gray-700 hover:text-blue-600 active:bg-gray-50 rounded px-2">
-            Help
-          </a>
+          <button
+            @click="goToProfile"
+            class="w-full text-left block py-3 text-gray-700 hover:text-indigo-600 active:bg-gray-50 rounded px-2"
+          >
+            👤 Profil
+          </button>
+          <button
+            @click="handleLogout"
+            class="w-full text-left block py-3 text-red-600 hover:bg-red-50 active:bg-red-100 rounded px-2 font-semibold"
+          >
+            🚪 Abmelden
+          </button>
         </nav>
       </div>
     </Transition>
