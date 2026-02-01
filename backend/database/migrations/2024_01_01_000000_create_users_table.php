@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id(); // bigint unsigned auto-increment primary key
+            $table->string('email', 255)->nullable()->unique()->comment('User email address, nullable until verification');
+            $table->string('invite_code', 100)->unique()->comment('Unique invite code for private app access');
+            $table->timestamps(); // created_at, updated_at
+            
+            // Indexes
+            $table->index('email');
+            $table->index('invite_code');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+    }
+};
